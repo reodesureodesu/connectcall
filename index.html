@@ -802,7 +802,11 @@ function renderDeletedMsg(id){
 function markDeleted(id){renderDeletedMsg(id);}
 
 // ===== DELETE =====
-function askDelete(id){pendingDeleteId=id;document.getElementById('deleteConfirm').classList.add('active');}
+function askDelete(id){
+  console.log('askDelete called, id=',id);
+  pendingDeleteId=id;
+  document.getElementById('deleteConfirm').classList.add('active');
+}
 function closeDeleteConfirm(){pendingDeleteId=null;document.getElementById('deleteConfirm').classList.remove('active');}
 async function confirmDelete(){
   if(!pendingDeleteId){closeDeleteConfirm();return;}
