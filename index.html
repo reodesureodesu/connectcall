@@ -808,10 +808,24 @@ async function confirmDelete(){
   if(!pendingDeleteId){closeDeleteConfirm();return;}
   const id=pendingDeleteId;closeDeleteConfirm();
   try{
-    await sbUpdate('messages',`id=eq.${id}`,{deleted:true});
+    console.log('削除試行 id=',id);
+    const res=await axios.patch(
+      `${SB_URL}/rest/v1/messages?id=eq.${id}`,
+      {deleted:true},
+      {headers:{
+        'apikey':SB_KEY,
+        'Authorization':'Bearer '+SB_KEY,
+        'Content-Type':'application/json',
+        'Prefer':'return=minimal'
+      }}
+    );
+    console.log('削除成功',res.status);
     markDeleted(id);
     broadcast({type:'msgDeleted',msgId:id});
-  }catch(e){addSys('削除に失敗しました');}
+  }catch(e){
+    console.error('削除エラー',e.response?.status, e.response?.data, e.message);
+    addSys('削除に失敗しました: '+JSON.stringify(e.response?.data||e.message));
+  }
 }
 
 function addSys(txt){
