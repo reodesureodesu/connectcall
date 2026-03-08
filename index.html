@@ -791,7 +791,7 @@ wrap.className='message'+(isMine?' mine':'');
   const inner=document.createElement('div');
   let content='';
   if(msg.text)content+=`<div>${esc(msg.text)}</div>`;
-  if(msg.image_url)content+=`<img src="${msg.image_url}" onclick="openImgOverlay('${msg.image_url.replace(/'/g,"\\'")}')">`;
+ if(msg.image_url)content+=`<img src="${msg.image_url}" style="max-width:220px;max-height:220px;border-radius:10px;display:block;margin-top:4px;cursor:pointer" onclick="openImgOverlay(this.src)">`;`<img src="${msg.image_url}" style="max-width:220px;max-height:220px;border-radius:10px;display:block;margin-top:4px;cursor:pointer" onclick="openImgOverlay(this.src)">`;`<img src="${msg.image_url}" onclick="openImgOverlay('${msg.image_url.replace(/'/g,"\\'")}')">`;
   const delBtn=isMine?`<button class="deleteBtn" data-msg-id="${msg.id}" title="削除">🗑️</button>`:'';
   inner.innerHTML=`<div class="msgBubble">${content}</div><div class="msgMeta">${isMine?'':esc(msg.name)+' · '}${t}${delBtn}</div>`;
   wrap.appendChild(inner);
