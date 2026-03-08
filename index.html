@@ -781,6 +781,8 @@ async function syncDeleted(){
 function renderMsg(msg,scroll){
   if(msg.deleted){renderDeletedMsg(msg.id);return;}
   const box=document.getElementById('chatMessages');
+  const wrap=document.createElement('div');
+wrap.className='message'+(isMine?' mine':'');
   // 自分のメッセージかどうかをuser_idで判定
   const isMine = msg.user_id === myId || msg.peer_id === myPeerId || msg.mine === true;
   wrap.dataset.msgId=msg.id||'';
